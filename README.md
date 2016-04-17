@@ -15,7 +15,7 @@ $ git clone https://github.com/appleboy/linkit-smart-7688-golang.git
 $ cd linkit-smart-7688-golang && docker build -t mt7688 .
 ```
 
-Start the `7688` termial.
+Start the `7688` terminal.
 
 ```bash
 $ docker run -ti mt7688 /bin/bash
