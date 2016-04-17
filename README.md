@@ -70,8 +70,8 @@ insert before
 
 ```makefile
   define Package/libgo/install
-    $(INSTALL_DIR) $(1)/usr/lib
-    $(if $(CONFIG_TARGET_avr32)$(CONFIG_TARGET_coldfire),,$(CP) $(TOOLCHAIN_DIR)/lib/libgo.so.* $(1)/usr/lib/)
+        $(INSTALL_DIR) $(1)/usr/lib
+        $(if $(CONFIG_TARGET_avr32)$(CONFIG_TARGET_coldfire),,$(CP) $(TOOLCHAIN_DIR)/lib/libgo.so.* $(1)/usr/lib/)
   endef
 ```
 
@@ -126,11 +126,13 @@ Select the options as below:
 
 Build [gccgo](https://golang.org/doc/install/gccgo):
 
+```
 -> Advanced configuration options
 -> Toolchain options
 -> Select Build/Install gccgo
 -> C library implementation
 -> Use eglibc
+```
 
 Start the compilation process:
 
