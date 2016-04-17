@@ -25,13 +25,13 @@ open `package/libs/toolchain/Makefile` file
 
 find
 
-```
+```makefile
 define Package/ldd
 ```
 
 insert before
 
-```
+```makefile
 define Package/libgo
 $(call Package/gcc/Default)
   TITLE:=Go support library
@@ -62,13 +62,13 @@ endef
 
 find
 
-```
+```makefile
 define Package/libssp/install
 ```
 
 insert before
 
-```
+```makefile
   define Package/libgo/install
     $(INSTALL_DIR) $(1)/usr/lib
     $(if $(CONFIG_TARGET_avr32)$(CONFIG_TARGET_coldfire),,$(CP) $(TOOLCHAIN_DIR)/lib/libgo.so.* $(1)/usr/lib/)
@@ -77,19 +77,19 @@ insert before
 
 find
 
-```
+```makefile
 $(eval $(call BuildPackage,ldd))
 ```
 
 insert before
 
-```
+```makefile
 $(eval $(call BuildPackage,libgo))
 ```
 
 open `toolchain/gcc/Config.in` file. Insert the following code to bottom:
 
-```
+```makefile
 config INSTALL_GCCGO
     bool
     prompt "Build/install gccgo compiler?" if TOOLCHAINOPTS && !(GCC_VERSION_4_6 || GCC_VERSION_4_6_LINARO)
@@ -102,19 +102,19 @@ open `toolchain/gcc/common.mk` file.
 
 find
 
-```
+```makefile
 TARGET_LANGUAGES:="c,c++$(if $(CONFIG_INSTALL_LIBGCJ),$(SEP)java)$(if $(CONFIG_INSTALL_GFORTRAN),$(SEP)fortran)"
 ```
 
 replace
 
-```
+```makefile
 TARGET_LANGUAGES:="c,c++$(if $(CONFIG_INSTALL_LIBGCJ),$(SEP)java)$(if $(CONFIG_INSTALL_GFORTRAN),$(SEP)fortran)$(if $(CONFIG_INSTALL_GCCGO),$(SEP)go)"
 ```
 
 Prepare the kernel configuration to inform OpenWrt that we want to build an firmware for LinkIt Smart 7688:
 
-```
+```bash
 $ make menuconfig
 ```
 
@@ -134,7 +134,7 @@ Build [gccgo](https://golang.org/doc/install/gccgo):
 
 Start the compilation process:
 
-```
+```bash
 $ make V=s
 ```
 
@@ -142,7 +142,7 @@ $ make V=s
 
 Add an alias with your toolchain path information. This keeps it easy to call gccgo.
 
-```
+```bash
 alias mips_gccgo='/root/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_glibc-2.19/bin/mipsel-openwrt-linux-gccgo -Wl,-R,/root/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_glibc-2.19/lib/gcc/mipsel-openwrt-linux-gnu/4.8.3 -L /root/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_glibc-2.19/lib'
 ```
 
@@ -166,7 +166,7 @@ mips_gccgo -Wall -o helloworld_static_libgo helloworld.go -static-libgo
 
 run your program on 7688 device
 
-```
+```bash
 root@mylinkit:/tmp/7688# ./helloworld_static_libgo
 hello world
 ```
