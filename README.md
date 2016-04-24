@@ -21,6 +21,8 @@ Start the `7688` terminal.
 $ docker run -ti --name 7688 mt7688 /bin/bash
 ```
 
+## Update Source Code
+
 open `package/libs/toolchain/Makefile` file
 
 find
